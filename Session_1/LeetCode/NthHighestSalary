@@ -1,0 +1,17 @@
+-- G3 : Charu Singla (23BCS12553)
+
+CREATE OR REPLACE FUNCTION NthHighestSalary(N INT) RETURNS TABLE (Salary INT) AS $$
+BEGIN
+    IF (N <= 0) THEN
+        Salary:= NULL;
+        RETURN;
+    END IF;
+
+  RETURN QUERY (
+    SELECT DISTINCT e.Salary AS getNthHighestSalary
+    FROM Employee e
+    ORDER BY e.Salary DESC
+    Limit 1 Offset (N - 1)
+  );
+END;
+$$ LANGUAGE plpgsql;
