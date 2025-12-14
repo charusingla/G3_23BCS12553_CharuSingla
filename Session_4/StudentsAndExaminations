@@ -1,0 +1,44 @@
+--- Charu Singla : 23BCS12553 ---
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(50)
+);
+
+INSERT INTO Students (student_id, student_name) VALUES
+(1, 'Alice'),
+(2, 'Bob'),
+(13, 'John'),
+(6, 'Alex');
+
+CREATE TABLE Subjects (
+    subject_name VARCHAR(50) PRIMARY KEY
+);
+
+INSERT INTO Subjects (subject_name) VALUES
+('Math'),
+('Physics'),
+('Programming');
+
+CREATE TABLE Examinations (
+    student_id INT,
+    subject_name VARCHAR(50)
+);
+
+INSERT INTO Examinations (student_id, subject_name) VALUES
+(1, 'Math'),
+(1, 'Physics'),
+(1, 'Programming'),
+(2, 'Programming'),
+(1, 'Physics'),
+(1, 'Math'),
+(13, 'Math'),
+(13, 'Programming'),
+(13, 'Physics'),
+(2, 'Math'),
+(1, 'Math');
+
+SELECT * FROM Students AS st
+CROSS JOIN Subjects AS sb
+LEFT JOIN Examinations AS e
+ON e.student_id = st.student_id AND e.sub
+ORDER BY st.student_id
