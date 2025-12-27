@@ -1,0 +1,15 @@
+-- G3 : Charu Singla (23BCS12553)
+Create view vw_invoice_summary as
+Select i.invoice_id, i.invoice_date, c.client_name, s.service_name, ((s.hourly_rate * i.hours_worked) * (100 - i.discount_percent) / 100) :: NUMERIC (10,2) AS final_amount
+From invoice_details AS i
+join client_master as c on i.client_id = c.client_id
+join service_catalog as s on s.service_id = i.service_id;
+
+Select * From vw_invoice_summary;
+
+Select current_user;
+
+CREATE ROLE annay 
+With Login Password 'Charu';
+
+GRANT SELECT on table vw_invoice_summary TO annay;

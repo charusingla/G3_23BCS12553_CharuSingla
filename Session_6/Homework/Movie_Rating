@@ -1,0 +1,30 @@
+--- Charu Singla : 23BCS12553 (G-3) ---
+
+WITH feb_movies AS (
+    SELECT * FROM MovieRating
+    WHERE TO_CHAR(created_at, 'yyyy-mm') = '2020-02'
+),
+feb_highest_avg AS (
+    SELECT title 
+    FROM feb_movies f
+    INNER JOIN Movies m
+    ON f.movie_id = m.movie_id
+    GROUP BY title
+    ORDER BY AVG(rating) DESC, title ASC 
+    LIMIT 1
+),
+greater_movies AS (
+    SELECT name
+    FROM Users u
+    INNER JOIN MovieRating mr
+    ON u.user_id = mr.user_id
+    GROUP BY name
+    ORDER BY COUNT(mr.user_id) DESC, name ASC
+    LIMIT 1
+)
+
+SELECT name AS results
+FROM greater_movies
+UNION ALL
+SELECT title 
+FROM feb_highest_avg;
